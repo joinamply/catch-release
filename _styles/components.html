@@ -1,3 +1,14 @@
+<!-- All Components -->
+ <style>
+    [data-parent]:not(:has([data-child]:not(:empty))):not(:empty) {
+        display: none;
+    }
+
+    [data-hide-if-empty]:not(:has(> *:not(.w-condition-invisible))) {
+        display: none;
+    }
+ </style>
+
 <!-- Navbar -->
 <style>
     @media screen and (min-width: 992px) and (max-width: 1130px) {
@@ -21,3 +32,18 @@
         height: var(--size-icon--tiny);
     }
 </style>
+
+<!-- Testimonials Slider -->
+ <style>
+    .swiper-wrapper.is-testimonial a {
+        color: inherit !important;
+    }
+
+    .swiper-wrapper.is-testimonial .swiper-slide.is-testimonial:first-child .testimonial-slide_detail-left {
+        display: none;
+    }
+
+    .swiper-wrapper.is-testimonial .swiper-slide.is-testimonial:last-child .testimonial-slide_detail-right {
+        display: none;
+    }
+ </style>

@@ -2,6 +2,8 @@
 <script src="https://joinamply.github.io/amply-motion/dist/index.js"></script>
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- Plyr.io -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
 
 <!-- Navbar -->
 <script>
@@ -112,6 +114,66 @@
     });
 </script>
 
+<!-- Thumbail Players -->
+<script>
+    let thumbPlayers = Plyr.setup((".plyr_thumb"), {
+        controls: [],
+        blankVideo: "https://cdn.plyr.io/static/blank.mp4",
+        resetOnEnd: true
+    });
+
+    $('.thumb-plyr_wrap').each(function (index) {
+        // Add an attribute with the index value
+        $(this).attr('thumb-plyr', `${index}`);
+        // Stop by default
+        $(thumbPlayers[index])[0].stop();
+    });
+
+    function playThumbPlyr(plyrWrap, index) {        
+        let thumbPlayer = $(thumbPlayers[index])[0];
+        thumbPlayer.volume = 0;
+        thumbPlayer.muted = true;
+        thumbPlayer.loop = true;
+        let promise = thumbPlayer.play();
+
+        if(gsap.isTweening(plyrWrap)) {
+            gsap.killTweensOf(plyrWrap);
+        }
+        gsap.to(plyrWrap, { opacity: 1, duration: 0.3 });
+
+        if (promise !== undefined) {
+            promise.catch(error => {
+                console.log("Thumb Auto-play was prevented");
+            }).then(() => {
+                console.log("Thumb Auto-play started");
+            });
+        }
+        thumbPlayer.play();
+    }
+
+    function stopThumbPlyr(plyrWrap, index) {
+        if(gsap.isTweening(plyrWrap)) {
+            gsap.killTweensOf(plyrWrap);
+        }
+        gsap.to(plyrWrap, { opacity: 0, duration: 0.3, onComplete: () => {
+            $(thumbPlayers[index])[0].stop();
+        } });
+    }
+
+
+    // $('.video-slide_layout').on('mouseenter', function () {
+    //     $(this).find('.thumb-plyr_wrap').css('opacity', '1');
+    //     let thumbPlyrIndex = $(this).find('.thumb-plyr_wrap').attr('thumb-plyr');
+    //     playThumbPlyr(thumbPlyrIndex);
+    // });
+
+    // $('.video-slide_layout').on('mouseleave', function () {
+    //     $(this).find('.thumb-plyr_wrap').css('opacity', '0');
+    //     let thumbPlyrIndex = $(this).find('.thumb-plyr_wrap').attr('thumb-plyr');
+    //     stopThumbPlyr(thumbPlyrIndex);
+    // });
+</script>
+
 <!-- Swiper Slider -->
 <script>
     $(".swiper_component").each(function () {
@@ -124,7 +186,7 @@
         let autoHeight = $(this).attr("auto-height") !== undefined ? $(this).attr("auto-height") === "true" : false;
         let effect = $(this).attr("effect") !== undefined ? $(this).attr("effect") : "slide"; // slide, fade, flip, coverflow, cards, cube
         let loop = $(this).attr("set-loop") !== undefined ? $(this).attr("set-loop") === "true" : false;
-        let loopAdditionalSlides = $(this).attr("loop-additional-slides") !== undefined ? parseFloat($(this).attr("loop-additional-slides")) : 0;
+        let loopAdditionalSlides = $(this).attr("loop-additional-slides") !== undefined ? parseInt($(this).attr("loop-additional-slides")) : 0;
         let centeredSlides = $(this).attr("centered-slides") !== undefined ? $(this).attr("centered-slides") === "true" : false;
         const swiper = new Swiper($(this).find(".swiper")[0], {
             effect: effect,
@@ -164,16 +226,44 @@
                 nextEl: $(this).find('[swiper-button="next"]')[0],
                 prevEl: $(this).find('[swiper-button="prev"]')[0],
                 disabledClass: "is-disabled"
-            },
-            on: {
-                init: function () {
-                    // Make sure the previous slide is visible when the loop is enabled
-                    if (loop) {
-                        this.slidePrev();
-                        this.slideToLoop(0, 0);
-                    }
-                }
             }
+        });
+
+        // Make sure the previous slide is visible when the loop is enabled
+        if (loop) {
+            swiper.slidePrev();
+            swiper.slideToLoop(0, 0);
+        }
+
+        // Get the current slide and play the thumb video if it has one
+        let currentSlide = swiper.slides[swiper.activeIndex];
+        $(currentSlide).find('.thumb-plyr_wrap').each(function () {
+            ScrollTrigger.create({
+                trigger: $(this),
+                start: "top bottom",
+                end: "+=0",
+                onEnter: () => {
+                    let thumbPlyrIndex = $(this).attr('thumb-plyr');
+                    playThumbPlyr($(this), thumbPlyrIndex);
+                },
+            });
+        });
+
+        swiper.on('slideChange', function () {
+            let currentSlide = swiper.slides[swiper.activeIndex];
+            let previousSlide = swiper.slides[swiper.previousIndex];
+
+            // Stop previous slide
+            $(previousSlide).find('.thumb-plyr_wrap').each(function () {
+                let thumbPlyrIndex = $(this).attr('thumb-plyr');
+                stopThumbPlyr($(this), thumbPlyrIndex);
+            });
+
+            // Play current slide
+            $(currentSlide).find('.thumb-plyr_wrap').each(function () {
+                let thumbPlyrIndex = $(this).attr('thumb-plyr');
+                playThumbPlyr($(this), thumbPlyrIndex);
+            });
         });
     });
 

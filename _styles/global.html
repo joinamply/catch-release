@@ -67,6 +67,50 @@
     @media screen and (max-width:479px) { html { font-size: calc(0.7494769874476988rem + 0.8368200836820083vw); } }
 </style>
 
+<!-- Plyr.io -->
+<style>
+    html {
+        --plyr-color-main: white;
+        --plyr-tab-focus-color: transparent;
+        --plyr-video-control-color-hover: black;
+        --plyr-control-icon-size: 1.5em;
+        --plyr-range-thumb-height: 0px;
+        --plyr-range-track-height: 0.6em;
+    }
+
+    .plyr__control--overlaid {
+        color: black;
+    }
+
+    .plyr__volume {
+        width: auto;
+        min-width: auto;
+        max-width: auto;
+    }
+
+    .plyr {
+        width: 100%;
+        height: 100%;
+    }
+
+    .plyr video {
+        object-fit: cover;
+    }
+
+    .contain-video video {
+        object-fit: contain;
+    }
+
+    .hide-cover .plyr_cover {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .hide-cover .plyr_cover-img {
+        transform: scale(1.4);
+    }
+</style>
+
 <!-- Box Shadows -->
 <style>
     :root {
@@ -133,13 +177,6 @@
         font-size: calc(var(--h6--font-size) - 50%);
         top: -0.25rem;
         vertical-align: super;
-    }
- </style>
-
-<!-- Theme -->
- <style>
-    section {
-        background-color: var(--color-neutral--white);
     }
  </style>
 
