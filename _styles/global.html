@@ -28,6 +28,14 @@
         margin-bottom: 0 !important;
     }
 
+    /* Apply "..." after 5 lines of text */
+    .text-style-5lines {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+    }
+
     /* Apply "..." after 3 lines of text */
     .text-style-3lines {
         display: -webkit-box;
@@ -114,7 +122,7 @@
 <!-- Box Shadows -->
 <style>
     :root {
-        --box-shadow: 0px 10px 20px 0px rgba(25, 25, 25, 0.08);
+        --box-shadow: 0px 2px 4px 0px rgba(95, 95, 95, 0.04), 0px 4px 10px 0px rgba(143, 143, 143, 0.12);
     }
 
     [box-shadow=""] {
@@ -193,9 +201,28 @@
         --body--font-color: var(--color-neutral--grey);
         --body--accent-font-color: var(--color-neutral--white);
         --body--bg-color-cards-1: var(--color-neutral--black-grey);
+        --body--bg-color: var(--color-neutral--black);
     }
 
     [theme="dark"] .button {
         filter: invert(100%);
+    }
+
+    [theme="dark"] .form_input {
+        border-bottom-color: var(--color-neutral--white-60);
+    }
+
+    [theme="dark"] .resource-type_item {
+        background-color: var(--color-neutral--black-grey);
+        color: var(--color-neutral--white);
+    }
+
+    [theme="dark"] .licensable-search_input-field {
+        background-color: var(--color-neutral--white-15);
+        border-color: var(--color-neutral--white-15);
+    }
+
+    [theme="dark"] .licensable-search_input-field:focus {
+        border-color: var(--color-neutral--white-60);
     }
   </style>

@@ -1,5 +1,5 @@
 <!-- All Components -->
- <style>
+<style>
     [data-parent]:not(:has([data-child]:not(:empty))):not(:empty) {
         display: none;
     }
@@ -7,7 +7,7 @@
     [data-hide-if-empty]:not(:has(> *:not(.w-condition-invisible))) {
         display: none;
     }
- </style>
+</style>
 
 <!-- Navbar -->
 <style>
@@ -15,7 +15,7 @@
         .navbar-dropdown_dropdown-list.is-platform.w--open {
             margin-left: -8rem;
         }
-        
+
         .navbar-dropdown_dropdown-list.is-resources.w--open {
             margin-left: -25rem;
         }
@@ -34,7 +34,7 @@
 </style>
 
 <!-- Testimonials Slider -->
- <style>
+<style>
     .swiper-wrapper.is-testimonial a {
         color: inherit !important;
     }
@@ -45,5 +45,84 @@
 
     .swiper-wrapper.is-testimonial .swiper-slide.is-testimonial:last-child .testimonial-slide_detail-right {
         display: none;
+    }
+</style>
+
+<!-- Table of Contents -->
+<style>
+    .fs-toc_link-content::-webkit-scrollbar {
+        width: 6px;
+        /* Width of the scrollbar */
+    }
+
+    .fs-toc_link-content::-webkit-scrollbar-track {
+        background: transparent;
+        /* Background of the scrollbar track */
+    }
+
+    .fs-toc_link-content::-webkit-scrollbar-thumb {
+        background: var(--color-neutral--light-grey);
+        /* Color of the scrollbar thumb */
+        border-radius: 6px;
+        /* Rounded corners */
+    }
+
+    .fs-toc_link-content::-webkit-scrollbar-thumb:hover {
+        background: var(--color-neutral--grey);
+        /* Color when hovering over the scrollbar thumb */
+    }
+</style>
+
+<!-- Accordion Automatic -->
+<style>
+    .accordion-automatic.is-active .accordion-automatic_progress-fill {
+        opacity: 1;
+    }
+</style>
+
+<!-- Section - 2 Columns -->
+<style>
+    @media screen and (max-width: 767px) {
+        .section_2col[mobile-order="invert"] ._2col_slot-right-wrap {
+            order: -1;
+        }
+    }
+</style>
+
+<!-- Section - CTA 4 -->
+<style>
+    @media screen and (max-width: 1200px) {
+        .cta4_image-wrap {
+            aspect-ratio: 1.1/1;
+        }
+    }
+
+    @media screen and (max-width: 1080px) {
+        .cta4_image-wrap {
+            aspect-ratio: 1/1;
+        }
+    }
+</style>
+
+<!-- Card - Gallery -->
+<style>
+    .card-gallery[aspect="landscape"] {
+        grid-column-start: span 2;
+        grid-column-end: span 2;
+        aspect-ratio: 646/378;
+    }
+</style>
+
+<!-- Header - Webinars, Videos -->
+ <style>
+    .header-resources_video-embed .w-embed {
+        margin-bottom: 0rem !important;
+        aspect-ratio: 16/9 !important;
+        width: 100% !important;
+        border-radius: var(--radius--small) !important;
+    }
+
+    .header-resources_video-embed .w-embed iframe {
+        border-radius: var(--radius--small) !important;
     }
  </style>

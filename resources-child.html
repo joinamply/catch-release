@@ -1,0 +1,40 @@
+<!-- Share URL -->
+<script>
+    let shareUrl = window.location.href;
+    let shareButton = $('[share="button"]');
+    let shareFeedback = $('[share="feedback"]');
+    
+    shareButton.on('click', function () {
+        // Copy shareUrl to clipboard
+        navigator.clipboard.writeText(shareUrl).then(function () {
+            if(gsap.isTweening(shareFeedback)) {
+                gsap.killTweensOf(shareFeedback);
+            }
+            gsap.fromTo(shareFeedback, {opacity: 0, y: '-1rem'}, {opacity:1, y: '0rem', duration: 0.3});
+            gsap.to(shareFeedback, {opacity: 0, duration: 0.3, delay: 2});
+        }, function (err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+    })
+</script>
+
+<!-- Schema - Article -->
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Title of a News Article",
+      "image": "https://example.com/photos/1x1/photo.jpg",
+      "datePublished": "2024-01-05T08:00:00+08:00",
+      "dateModified": "2024-02-05T09:20:00+08:00",
+      "author": [{
+          "@type": "Organization",
+          "name": "Organization Name",
+          "url": "https://example.com/profile/janedoe123"
+        },{
+          "@type": "Person",
+          "name": "John Doe",
+          "url": "https://example.com/profile/johndoe123"
+      }]
+    }
+</script>

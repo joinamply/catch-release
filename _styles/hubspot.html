@@ -1,0 +1,90 @@
+<style>
+    /* Modify the form container */
+    .hubspot_form-embed form {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .form-columns-1,
+    .form-columns-2 {
+        width: 100% !important;
+        max-width: none !important;
+    }
+
+    @media screen and (max-width: 767px) {
+
+        .form-columns-1,
+        .form-columns-2 {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+        }
+
+        .hs-form-field {
+            width: 100% !important;
+        }
+    }
+
+    .hubspot_form-embed input {
+        margin-right: 0 !important;
+    }
+
+    .hubspot_form-embed .inputs-list {
+        padding-left: 0 !important;
+        list-style-type: none !important;
+    }
+
+    .hs-form-booleancheckbox-display {
+        display: flex;
+        flex-direction: row;
+        grid-column-gap: 1rem;
+        grid-row-gap: 1rem;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .hs-form-booleancheckbox-display span {
+        font-size: 16px;
+    }
+
+    .hs-input[type=checkbox] {
+        width: 1rem !important;
+        height: 1rem !important;
+        min-height: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .hs-input[type=radio] {
+        min-height: 0rem;
+        padding-top: 0rem;
+        padding-right: 0rem;
+        padding-bottom: 0rem;
+        padding-left: 0rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: auto;
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-top-color: var(--color-neutral--black-grey);
+        border-right-style: solid;
+        border-right-width: 1px;
+        border-right-color: var(--color-neutral--black-grey);
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: var(--color-neutral--black-grey);
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-left-color: var(--color-neutral--black-grey);
+        border-top-left-radius: 100%;
+        border-top-right-radius: 100%;
+        border-bottom-left-radius: 100%;
+        border-bottom-right-radius: 100%;
+        transition-property: border-width, border-color;
+        transition-duration: 200ms, 200ms;
+        transition-timing-function: ease, ease;
+        width: 1rem !important;
+        height: 1rem !important;
+        accent-color: transparent !important;
+    }
+</style>
