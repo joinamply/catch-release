@@ -1,0 +1,44 @@
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+
+<script>
+    gsap.registerPlugin(DrawSVGPlugin);
+
+    let imageToFlip = $('[image-to-flip]');
+    let imageToRotate = $('[image-to-rotate]');
+    let flipWrapCenter = $('[image-flip-wrap="center"]');
+    let flipWrapContent = $('[image-flip-wrap="content"]');
+    let flipTriggers = $('[image-flip-trigger]');
+
+    function flip(destination, rotX, rotY, rotZ) {
+        let state = Flip.getState(imageToFlip);
+        imageToFlip.appendTo(destination);
+        Flip.from(state, {duration: 0.6, ease: 'back.inOut(2)'});
+        gsap.to(imageToRotate, {rotationX: rotX, rotationY: rotY, rotationZ: rotZ, duration: 0.5});
+    }
+
+    // From bottom to top
+    flipTriggers.each(function (index) {
+        let rotX = $(this).attr("rotx") !== undefined ? parseFloat($(this).attr("rotx")) : 0;
+        let rotY = $(this).attr("roty") !== undefined ? parseFloat($(this).attr("roty")) : 0;
+        let rotZ = $(this).attr("rotz") !== undefined ? parseFloat($(this).attr("rotz")) : 0;
+
+        ScrollTrigger.create({
+            trigger: this,
+            start: 'center bottom',
+            end: 'bottom bottom',
+            markers: false,
+            onEnter: () => {
+                flip(flipWrapCenter, rotX, rotY, rotZ);
+            },
+            onLeave: () => {
+                flip(flipWrapContent[index + 1], 0, 0, 0);
+            },
+            onEnterBack: () => {
+                flip(flipWrapCenter, rotX, rotY, rotZ);
+            },
+            onLeaveBack: () => {
+                flip(flipWrapContent[index], 0, 0, 0);
+            }
+        });
+    });
+</script>

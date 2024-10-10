@@ -7,10 +7,34 @@
     [data-hide-if-empty]:not(:has(> *:not(.w-condition-invisible))) {
         display: none;
     }
+
+    [data-right-text]:has(p:empty) {
+        display: none;
+    }
 </style>
 
 <!-- Navbar -->
 <style>
+    @media screen and (min-width: 992px) and (max-width: 1279px) {
+        .navbar_brand {
+            width: 7rem;
+        }
+
+        .navbar-dropdown_dropdown-toggle {
+            font-size: 0.75rem;
+        }
+
+        .button.is-navbar {
+            padding: 0.3rem 1rem;
+            font-size: 0.75rem;
+        }
+
+        .navbar_left-wrap, .navbar_links-list {
+            grid-column-gap: 0.75rem;
+            grid-row-gap: 0.75rem;
+        }
+    }
+
     @media screen and (min-width: 992px) and (max-width: 1130px) {
         .navbar-dropdown_dropdown-list.is-platform.w--open {
             margin-left: -8rem;
@@ -39,11 +63,11 @@
         color: inherit !important;
     }
 
-    .swiper-wrapper.is-testimonial .swiper-slide.is-testimonial:first-child .testimonial-slide_detail-left {
+    .swiper-wrapper.is-testimonial .swiper-slide.is-testimonial:first-child .card-testimonial_detail-left {
         display: none;
     }
 
-    .swiper-wrapper.is-testimonial .swiper-slide.is-testimonial:last-child .testimonial-slide_detail-right {
+    .swiper-wrapper.is-testimonial .swiper-slide.is-testimonial:last-child .card-testimonial_detail-right {
         display: none;
     }
 </style>
@@ -126,3 +150,28 @@
         border-radius: var(--radius--small) !important;
     }
  </style>
+
+<!-- Automatic Tabs -->
+<style>
+    /* Sets tab pane to display block instead of default display:none */
+    /* Allows CSS opacity transitions */
+    .automatic-tabs_tabs .w-tab-pane,
+    .automatic-tabs_tabs .w--current {
+        display: block;
+    }
+
+    /* Any .w-tab-pane that does not have webflow .w--curent sets opacity 0 */
+    .automatic-tabs_tabs .w-tab-pane:not(.w--curent) {
+        opacity: 0;
+    }
+
+    /* Any element with .w-tab-pane that has .w--tab-active sets the opacity 100% */
+    .automatic-tabs_tabs .w-tab-pane.w--tab-active {
+        opacity: 1;
+    }
+
+    /* Set the opacity transition to 1 second ease-in */
+    .automatic-tabs_tabs .w-tab-pane {
+        transition: opacity 500ms ease-in;
+    }
+</style>

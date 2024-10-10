@@ -289,22 +289,10 @@
                 .from(end, { scale: 0, opacity: 0, transformOrigin: "center", duration: 0.3 })
                 .from(text, { opacity: 0, duration: 0.3 });
         });
-
-        gsap.to(".animated-line", {
-            duration: 1,
-            drawSVG: "0% 100%",
-            ease: "power2.inOut",
-            scrollTrigger: {
-                trigger: ".animated-line_wrap",
-                start: "bottom 90%",
-                end: "+=0",
-                scrub: true,
-            },
-        });
     });
 </script>
 
-<!-- Accordion Automatic -->
+<!-- Automatic Accordion -->
 <style>
     .accordion-automatic_description-wrap {
         height: 0rem;
@@ -411,10 +399,131 @@
         enabled: !/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent),
         resetOnEnd: false
     });
-    config.muted = false;
-    config.volume = 1;
-    // Hide thumbnail on click
-    $('.inline-plyr').on('click', function () {
-        gsap.to('.inline-plyr_thumbnail-wrap', { opacity: 0, duration: 0.3 });
+    if (config != null) {
+        config.muted = false;
+        config.volume = 1;
+        // Hide thumbnail on click
+        $('.inline-plyr').on('click', function () {
+            gsap.to('.inline-plyr_thumbnail-wrap', { opacity: 0, duration: 0.3 });
+        });
+    }
+</script>
+
+<!-- Automatic Tabs -->
+<script>
+    $(".automatic-tabs_tabs").each(function () {
+        let tabLinks = $(this).find(".automatic-tabs_link");
+        let currentTabLink = tabLinks.filter(".w--current");
+        let progressFill;
+        let timerStarted = false;
+        let onHover = false;
+        let duration = $(this).attr("duration") !== undefined ? parseFloat($(this).attr("duration")) : 10;
+
+        if (tabLinks.length <= 1) return;
+
+        $(this).on("mouseenter", function () {
+            onHover = true;
+            pauseTimer();
+        });
+
+        $(this).on("mouseleave", function () {
+            onHover = false;
+            startTimer();
+        });
+
+        tabLinks.on("click", function () {
+            progressFill.width(0);
+            currentTabLink = $(this);
+            pauseTimer();
+            startTimer();
+        });
+
+        function startTimer(params) {
+            if (timerStarted || onHover) return;
+            timerStarted = true;
+            progressFill = currentTabLink.find(".automatic-tabs_tab-fill");
+            gsap.fromTo(progressFill, { width: "0%" }, { width: "100%", duration: duration, ease: "none", onComplete: nextItem });
+        }
+
+        function pauseTimer() {
+            timerStarted = false;
+            gsap.killTweensOf(progressFill);
+        }
+
+        function nextItem() {
+            progressFill.width(0);
+            let currentTabIndex = currentTabLink.index();
+            if (currentTabIndex === tabLinks.length - 1) {
+                currentTabLink = tabLinks.first();
+            } else {
+                currentTabLink = tabLinks.eq(currentTabIndex + 1);
+            }
+            currentTabLink.trigger("click");
+        }
+
+        // To prevent the page from jump the timer will just start when the section scrolls into view
+        ScrollTrigger.create({
+            trigger: $(this),
+            start: "top bottom",
+            end: "bottom top",
+            markers: false,
+            onEnter: () => {
+                startTimer();
+            },
+            onEnterBack: () => {
+                startTimer();
+            },
+            onLeave: () => {
+                pauseTimer();
+            },
+            onLeaveBack: () => {
+                pauseTimer();
+            },
+        });
     });
 </script>
+
+<!-- Scrub Marquee -->
+<script>
+    $('.scrub-marquee_component').each(function () {
+        let list = $(this).find('.scrub-marquee_list');
+        let track = $(this).find('.scrub-marquee_track');
+        let posX = "-50%";
+        list.clone().appendTo(list.parent());
+        let tl = gsap.timeline({ scrollTrigger: { 
+            trigger: $(this),
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 2,
+            markers: false 
+        }});
+
+        if($(this).hasClass('is-direction-reverse')) {
+            posX = "50%";
+        }
+
+        tl.to(track, { x: posX, duration: 60, ease: "power2.out"});
+    });
+</script>
+
+<!-- App Search -->
+<script>
+$('[app-search]').on('submit', function (event) {
+    event.preventDefault();
+    let searchInput = $(this).find('input');
+    let searchValue = searchInput.val();
+    let searchURL = 'https://www.catchandrelease.com/search';
+    let searchQuery = new URLSearchParams();
+    searchQuery.set('search', searchValue);
+    window.location = `${searchURL}?${searchQuery.toString()}`;
+    return false;
+});
+</script>
+
+<!-- Sign In -->
+ <script>
+    $('[sign-in]').on('click', function () {
+        $('.navbar-dynamic-content.is-logged-out').hide();
+        $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
+    });
+ </script>
