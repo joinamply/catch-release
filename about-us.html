@@ -1,0 +1,23 @@
+<style>
+    /* Display just the first 3 items */
+    [combined-list] .resources_item:nth-child(n+4) {
+        display: none;
+    }
+</style>
+
+<script>
+    window.fsAttributes = window.fsAttributes || [];
+    window.fsAttributes.push([
+        'cmssort',
+        (filterInstances) => {
+            console.log('cmssort Successfully loaded!');
+
+            // Sort all the items insied [combined-list] based on the attribute sort-date
+            $('[combined-list]').find('.resources_item').sort((a, b) => {
+                const dateA = new Date(a.getAttribute('sort-date'));
+                const dateB = new Date(b.getAttribute('sort-date'));
+                return dateA - dateB;
+            }).appendTo('[combined-list]');
+        },
+    ]);
+</script>

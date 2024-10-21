@@ -25,7 +25,8 @@
             font-size: 0.75rem;
         }
 
-        .navbar_left-wrap, .navbar_links-list {
+        .navbar_left-wrap,
+        .navbar_links-list {
             grid-column-gap: 0.75rem;
             grid-row-gap: 0.75rem;
         }
@@ -134,7 +135,7 @@
 </style>
 
 <!-- Header - Webinars, Videos -->
- <style>
+<style>
     .header-resources_video-embed .w-embed {
         margin-bottom: 0rem !important;
         aspect-ratio: 16/9 !important;
@@ -145,7 +146,7 @@
     .header-resources_video-embed .w-embed iframe {
         border-radius: var(--radius--small) !important;
     }
- </style>
+</style>
 
 <!-- Automatic Tabs -->
 <style>
@@ -169,5 +170,28 @@
     /* Set the opacity transition to 1 second ease-in */
     .automatic-tabs_tabs .w-tab-pane {
         transition: opacity 500ms ease-in;
+    }
+</style>
+
+<!-- Pricing Table -->
+<style>
+    @media screen and (min-width: 992px) {
+        .pricing-table .pricing-table_item:last-child {
+            border-bottom: 1px solid transparent;
+        }
+
+        .pricing-table_item .pricing-table_value:last-child {
+            border-right: 1px solid transparent;
+        }
+    }
+
+    @media screen and (max-width: 991px) {
+        .pricing-table_item .pricing-table_value:last-child {
+            border-bottom: 1px solid transparent;
+        }
+
+        .pricing-table .pricing-table_item:last-child .pricing-table_value {
+            border-right: 1px solid transparent;
+        }
     }
 </style>
