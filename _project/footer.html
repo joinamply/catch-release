@@ -167,6 +167,22 @@
             }
         });
     }
+
+    $('[plyr-play="scroll"]').each(function () {
+        ScrollTrigger.create({
+            trigger: $(this),
+            start: "top bottom",
+            end: "+=0",
+            onEnter: () => {
+                let thumbPlyrIndex = $(this).attr('thumb-plyr');
+                playThumbPlyr($(this), thumbPlyrIndex);
+            },
+            onLeaveBack: () => {
+                let thumbPlyrIndex = $(this).attr('thumb-plyr');
+                stopThumbPlyr($(this), thumbPlyrIndex);
+            },
+        });
+    });
 </script>
 
 <!-- Swiper Slider -->
@@ -273,7 +289,13 @@
             let circle = $(this).find('[animated-line="circle"]');
             let line = $(this).find('[animated-line="line"]');
             let end = $(this).find('[animated-line="end"]');
+            let drawFrom = "0%";
+            let drawTo = "100%";
             let text = $(this).find('[animated-line="text"]');
+            if(line.attr('animated-line-invert') !== undefined) {
+                drawFrom = "100% 100%";
+                drawTo = "0% 100%";
+            }
             let animatedLineTl = gsap.timeline({
                 paused: true,
                 scrollTrigger: {
@@ -285,7 +307,7 @@
             });
 
             animatedLineTl.from(circle, { opacity: 0, duration: 0.3, delay: 0.5 })
-                .from(line, { drawSVG: "0%", duration: 0.5 }, ',-=0.15')
+                .fromTo(line,{drawSVG: drawFrom}, { drawSVG: drawTo, duration: 0.5 }, ',-=0.15')
                 .from(end, { scale: 0, opacity: 0, transformOrigin: "center", duration: 0.3 })
                 .from(text, { opacity: 0, duration: 0.3 });
         });
