@@ -292,7 +292,7 @@
             let drawFrom = "0%";
             let drawTo = "100%";
             let text = $(this).find('[animated-line="text"]');
-            if(line.attr('animated-line-invert') !== undefined) {
+            if (line.attr('animated-line-invert') !== undefined) {
                 drawFrom = "100% 100%";
                 drawTo = "0% 100%";
             }
@@ -307,7 +307,7 @@
             });
 
             animatedLineTl.from(circle, { opacity: 0, duration: 0.3, delay: 0.5 })
-                .fromTo(line,{drawSVG: drawFrom}, { drawSVG: drawTo, duration: 0.5 }, ',-=0.15')
+                .fromTo(line, { drawSVG: drawFrom }, { drawSVG: drawTo, duration: 0.5 }, ',-=0.15')
                 .from(end, { scale: 0, opacity: 0, transformOrigin: "center", duration: 0.3 })
                 .from(text, { opacity: 0, duration: 0.3 });
         });
@@ -334,7 +334,6 @@
         items.removeClass("is-active");
         items.eq(currentItem).addClass("is-active");
         gsap.set(items.eq(currentItem).find(".accordion-automatic_description-wrap"), { height: "auto" });
-        // gsap.set(items.eq(currentItem).find(".content-accordion-item_icon-wrapper"), { rotationZ: "45" });
 
         items.on("click", function () {
             if ($(this).hasClass("is-active")) return;
@@ -353,11 +352,9 @@
         function changeActiveItem(index) {
             items.removeClass("is-active");
             gsap.to(items.eq(currentItem).find(".accordion-automatic_description-wrap"), { height: "0rem", duration: 0.5, ease: "power2.out" });
-            // gsap.to(items.eq(currentItem).find(".content-accordion-item_icon-wrapper"), { rotationZ: "0", duration: 0.5, ease: "power2.out" });
             items.eq(index).addClass("is-active");
             currentItem = index;
             gsap.to(items.eq(currentItem).find(".accordion-automatic_description-wrap"), { height: "auto", duration: 0.5, ease: "power2.out" });
-            // gsap.to(items.eq(currentItem).find(".content-accordion-item_icon-wrapper"), { rotationZ: "45", duration: 0.5, ease: "power2.out" });
         }
 
         // To prevent the page from jump the timer will just start when the section scrolls into view
@@ -512,40 +509,78 @@
         let track = $(this).find('.scrub-marquee_track');
         let posX = "-50%";
         list.clone().appendTo(list.parent());
-        let tl = gsap.timeline({ scrollTrigger: { 
-            trigger: $(this),
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 2,
-            markers: false 
-        }});
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 2,
+                markers: false
+            }
+        });
 
-        if($(this).hasClass('is-direction-reverse')) {
+        if ($(this).hasClass('is-direction-reverse')) {
             posX = "50%";
         }
 
-        tl.to(track, { x: posX, duration: 60, ease: "power2.out"});
+        tl.to(track, { x: posX, duration: 60, ease: "power2.out" });
+    });
+</script>
+
+<!-- Static Logos -->
+<script>
+    $('.static-logos_component').each(function () {
+        let wrapperDesktop = $(this).find('.static-logos_wrapper');
+        let wrapperMobile = wrapperDesktop.clone().appendTo($(this));
+        let list = wrapperMobile.find('.static-logos_list');
+        let duration = wrapperMobile.attr("am-duration") !== undefined ? parseFloat($(this).attr("am-duration")) : 60;
+
+        list.attr('am-element', 'marquee');
+        wrapperMobile.hide();
+
+        list.clone().appendTo(wrapperMobile);
+        list.clone().appendTo(wrapperMobile);
+
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: wrapperMobile,
+                start: "top bottom",
+                end: "+=0"
+            }
+        });
+
+        tl.to(wrapperMobile.find('.static-logos_list'), { x: "-100%", duration: duration, ease: "none", repeat: -1 });
+
+        let mm = gsap.matchMedia();
+        mm.add("(max-width: 767px)", () => {
+            wrapperMobile.css('display', 'flex');
+            wrapperDesktop.hide();
+            return () => {
+                wrapperDesktop.css('display', 'flex');
+                wrapperMobile.hide();
+            };
+        });
     });
 </script>
 
 <!-- App Search -->
 <script>
-$('[app-search]').on('submit', function (event) {
-    event.preventDefault();
-    let searchInput = $(this).find('input');
-    let searchValue = searchInput.val();
-    let searchURL = 'https://www.catchandrelease.com/search';
-    let searchQuery = new URLSearchParams();
-    searchQuery.set('search', searchValue);
-    window.location = `${searchURL}?${searchQuery.toString()}`;
-    return false;
-});
+    $('[app-search]').on('submit', function (event) {
+        event.preventDefault();
+        let searchInput = $(this).find('input');
+        let searchValue = searchInput.val();
+        let searchURL = 'https://www.catchandrelease.com/search';
+        let searchQuery = new URLSearchParams();
+        searchQuery.set('search', searchValue);
+        window.location = `${searchURL}?${searchQuery.toString()}`;
+        return false;
+    });
 </script>
 
 <!-- Sign In -->
- <script>
+<script>
     $('[sign-in]').on('click', function () {
         $('.navbar-dynamic-content.is-logged-out').hide();
         $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
     });
- </script>
+</script>
