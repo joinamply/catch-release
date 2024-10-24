@@ -1,4 +1,6 @@
+// ====================
 // Navbar
+// ====================
 ScrollTrigger.create({
     trigger: ".page-wrapper",
     start: "top+=75 top",
@@ -21,7 +23,9 @@ $(window).bind("load resize submit", function (e) {
     });
 });
 
+// ====================
 // HubSpot API
+// ====================
 let hsApiUrl = 'https://api.hsforms.com/submissions/v3/integration/submit/PORTAL-ID/';
 let formData = {
     fields: [],
@@ -97,7 +101,9 @@ $('[hs-form]').on('submit', function (event) {
         });
 });
 
+// ====================
 // Thumbail Players
+// ====================
 let thumbPlayers = Plyr.setup((".plyr_thumb"), {
     controls: [],
     blankVideo: "https://cdn.plyr.io/static/blank.mp4",
@@ -160,7 +166,9 @@ $('[plyr-play="scroll"]').each(function () {
     });
 });
 
+// ====================
 // Swiper Slider
+// ====================
 $(".swiper_component").each(function () {
     let slidesPerView = $(this).attr("slides-per-view") !== undefined ? $(this).attr("slides-per-view") : "auto";
     if (slidesPerView != "auto") {
@@ -255,7 +263,48 @@ $(".swiper_component").each(function () {
 // Change all slides roles to prevent an accessibility issue
 $(".swiper-slide").attr("role", "listitem");
 
+// ====================
+// Swiper Mobile
+// ====================
+function initMobileSwiper(swiperInstance, parent) {
+    if (window.innerWidth <= 767 && !swiperInstance) {
+        swiperInstance = new Swiper(parent.find('.swiper')[0], {
+            slidesPerView: 'auto',
+            speed: 500,
+            autoHeight: false,
+            a11y: true,
+            pagination: {
+                el: parent.find(".swiper_bullets-wrapper")[0],
+                bulletActiveClass: "is-active",
+                bulletClass: "swiper_bullet",
+                bulletElement: "button",
+                clickable: true
+            },
+            navigation: {
+                nextEl: parent.find('[swiper-button="next"]')[0],
+                prevEl: parent.find('[swiper-button="prev"]')[0],
+                disabledClass: "is-disabled"
+            }
+        });
+    }
+    else if (window.innerWidth > 767 && swiperInstance) {
+        swiperInstance.destroy(true, true); // Destroys the swiper instance
+        swiperInstance = null;
+    }
+}
+
+$(window).on('resize', function () {
+    $(".mobile-swiper_component").each(function () {
+        let swiperInstance;
+        initMobileSwiper(swiperInstance, $(this));
+    });
+});
+
+$(window).trigger('resize');
+
+// ====================
 // Animated Line
+// ====================
 $('.animated-line_component').each(function () {
     $(this).find('.animated-line_wrap').each(function () {
         let circle = $(this).find('[animated-line="circle"]');
@@ -371,7 +420,9 @@ $(".accordion-automatic-list").each(function () {
     });
 });
 
+// ====================
 // Inline Player
+// ====================
 let config = Plyr.setup(('.plyr-inline_video'), {
     controls: ['play', 'progress', 'current-time', 'mute', 'fullscreen'],
     blankVideo: "https://cdn.plyr.io/static/blank.mp4",
@@ -388,7 +439,9 @@ if (config != null) {
     });
 }
 
+// ====================
 // Automatic Tabs
+// ====================
 $(".automatic-tabs_tabs").each(function () {
     let tabLinks = $(this).find(".automatic-tabs_link");
     let currentTabLink = tabLinks.filter(".w--current");
@@ -460,7 +513,9 @@ $(".automatic-tabs_tabs").each(function () {
     });
 });
 
+// ====================
 // Scrub Marquee
+// ====================
 $('.scrub-marquee_component').each(function () {
     let list = $(this).find('.scrub-marquee_list');
     let track = $(this).find('.scrub-marquee_track');
@@ -517,7 +572,9 @@ $('.static-logos_component').each(function () {
     });
 });
 
+// ====================
 // App Search
+// ====================
 $('[app-search]').on('submit', function (event) {
     event.preventDefault();
     let searchInput = $(this).find('input');
@@ -529,7 +586,9 @@ $('[app-search]').on('submit', function (event) {
     return false;
 });
 
+// ====================
 // Sign In
+// ====================
 $('[sign-in]').on('click', function () {
     $('.navbar-dynamic-content.is-logged-out').hide();
     $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
