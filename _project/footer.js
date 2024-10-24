@@ -573,20 +573,6 @@ $('.static-logos_component').each(function () {
 });
 
 // ====================
-// App Search
-// ====================
-// $('[app-search]').on('submit', function (event) {
-//     event.preventDefault();
-//     let searchInput = $(this).find('input');
-//     let searchValue = searchInput.val();
-//     let searchURL = 'https://www.catchandrelease.com/search';
-//     let searchQuery = new URLSearchParams();
-//     searchQuery.set('search', searchValue);
-//     window.location = `${searchURL}?${searchQuery.toString()}`;
-//     return false;
-// });
-
-// ====================
 // Sign In
 // ====================
 $('[sign-in]').on('click', function () {
