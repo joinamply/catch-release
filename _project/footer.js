@@ -573,6 +573,16 @@ $('.static-logos_component').each(function () {
 });
 
 // ====================
+// Footer Newsletter
+// ====================
+$('#wf-form-Newsletter---Footer').on('submit', function (event) {
+    event.preventDefault();
+    $('.footer-newsletter_form').hide();
+    $('.footer-newsletter_success-message').show();
+    return false;
+});
+
+// ====================
 // Sign In
 // ====================
 $('[sign-in]').on('click', function () {
