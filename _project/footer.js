@@ -2,6 +2,7 @@
 // Navbar
 // ====================
 if (gsap) {
+    if($('.navbar_component').attr('navbar-app') === 'true') return;
     ScrollTrigger.create({
         trigger: ".page-wrapper",
         start: "top+=75 top",
