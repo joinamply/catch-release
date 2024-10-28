@@ -1,7 +1,7 @@
 // ====================
 // Navbar
 // ====================
-if ($('.navbar_component').attr('navbar-app') == undefined) {
+if ($('.navbar_component').attr('navbar-app') === undefined) {
     ScrollTrigger.create({
         trigger: ".page-wrapper",
         start: "top+=75 top",
