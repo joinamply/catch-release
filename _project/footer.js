@@ -1,21 +1,29 @@
 // ====================
 // Navbar
 // ====================
-ScrollTrigger.create({
-    trigger: ".page-wrapper",
-    start: "top+=75 top",
-    end: "+=0",
-    onEnter: () => $(".navbar_layout").addClass("is-scrolling"),
-    onEnterBack: () => $(".navbar_layout").removeClass("is-scrolling"),
-});
+if (gsap) {
+    ScrollTrigger.create({
+        trigger: ".page-wrapper",
+        start: "top+=75 top",
+        end: "+=0",
+        onEnter: () => $(".navbar_layout").addClass("is-scrolling"),
+        onEnterBack: () => $(".navbar_layout").removeClass("is-scrolling"),
+    });
+}
 
+// ====================
 // Footer Copywrite Year
+// ====================
 $('[copyright-year]').text(new Date().getFullYear());
 
+// ====================
 // Hide if collections is empty
+// ====================
 $('.w-dyn-empty').parents('[hide-if-empty]').each(function () { $(this).hide() });
 
+// ====================
 // Keep form height on success
+// ====================
 $(window).bind("load resize submit", function (e) {
     $('form').each(function () {
         var formHeight = $(this).height();
