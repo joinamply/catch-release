@@ -596,8 +596,17 @@ if (gsap) {
     // ====================
     // Sign In
     // ====================
-    $('[sign-in]').on('click', function () {
-        $('.navbar-dynamic-content.is-logged-out').hide();
-        $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
-    });
+    // get the main domain
+    const domain = window.location.hostname;
+
+    fetch(`${domain}/.redwood/functions/auth?method=getToken`)
+        .then(response => response.text())
+        .then(data => {
+            if (data) {
+                $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
+            } else {
+                console.log("No token found. User is not logged in.");
+            }
+        })
+        .catch(error => console.error("Error fetching token:", error));
 }
