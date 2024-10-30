@@ -620,5 +620,7 @@ if (gsap) {
     if (localStorage.getItem('isLoggedIn') === null) {
         checkUserStatus();
     }
-    e
+    else {
+        showLoggedInButtons();
+    }
 }
