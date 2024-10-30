@@ -1,4 +1,6 @@
 if (gsap) {
+    gsap.registerPlugin(DrawSVGPlugin);
+
     // ====================
     // Navbar
     // ====================
