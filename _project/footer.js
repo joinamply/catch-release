@@ -599,10 +599,11 @@ if (gsap) {
     // get the main domain
     const domain = window.location.hostname;
 
-    fetch(`${domain}/.redwood/functions/auth?method=getToken`)
+    fetch(`https://${domain}/.redwood/functions/auth?method=getToken`)
         .then(response => response.text())
         .then(data => {
             if (data) {
+                console.log(data);
                 $('.navbar-dynamic-content.is-logged-out').hide();
                 $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
             } else {
