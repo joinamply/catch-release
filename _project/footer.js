@@ -596,6 +596,11 @@ if (gsap) {
     // ====================
     // Sign In
     // ====================
+    function showLoggedInButtons() {
+        $('.navbar-dynamic-content.is-logged-out').hide();
+        $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
+    }
+
     function checkUserStatus() {
         const domain = window.location.hostname;
 
@@ -603,8 +608,7 @@ if (gsap) {
             .then(response => response.text())
             .then(data => {
                 if (data) {
-                    $('.navbar-dynamic-content.is-logged-out').hide();
-                    $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
+                    showLoggedInButtons();
                     localStorage.setItem('isLoggedIn', true);
                 } else {
                     console.log("No token found. User is not logged in.");
@@ -616,4 +620,5 @@ if (gsap) {
     if (localStorage.getItem('isLoggedIn') === null) {
         checkUserStatus();
     }
+    e
 }
