@@ -596,18 +596,24 @@ if (gsap) {
     // ====================
     // Sign In
     // ====================
-    // get the main domain
-    const domain = window.location.hostname;
+    function checkUserStatus() {
+        const domain = window.location.hostname;
 
-    fetch(`https://${domain}/.redwood/functions/auth?method=getToken`)
-        .then(response => response.text())
-        .then(data => {
-            if (data) {
-                $('.navbar-dynamic-content.is-logged-out').hide();
-                $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
-            } else {
-                console.log("No token found. User is not logged in.");
-            }
-        })
-        .catch(error => console.error("Error fetching token:", error));
+        fetch(`https://${domain}/.redwood/functions/auth?method=getToken`)
+            .then(response => response.text())
+            .then(data => {
+                if (data) {
+                    $('.navbar-dynamic-content.is-logged-out').hide();
+                    $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
+                    localStorage.setItem('isLoggedIn', true);
+                } else {
+                    console.log("No token found. User is not logged in.");
+                }
+            })
+            .catch(error => console.error("Error fetching token:", error));
+    }
+
+    if (localStorage.getItem('isLoggedIn') === null) {
+        checkUserStatus();
+    }
 }
