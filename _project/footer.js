@@ -603,7 +603,6 @@ if (gsap) {
         .then(response => response.text())
         .then(data => {
             if (data) {
-                console.log(data);
                 $('.navbar-dynamic-content.is-logged-out').hide();
                 $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
             } else {
