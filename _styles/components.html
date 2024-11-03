@@ -33,6 +33,16 @@
     }
 
     @media screen and (min-width: 992px) and (max-width: 1130px) {
+        .navbar-licensable-search_form-block {
+            display: none;
+        }
+
+        .navbar_mobile-menu-wrap {
+            display: flex;
+        }
+    }
+
+    @media screen and (min-width: 992px) and (max-width: 1170px) {
         .navbar-dropdown_dropdown-list.is-platform.w--open {
             margin-left: -8rem;
         }
@@ -193,5 +203,12 @@
         .pricing-table .pricing-table_item:last-child .pricing-table_value {
             border-right: 1px solid transparent;
         }
+    }
+</style>
+
+<!-- Combined List - Display just the first 3 items -->
+<style>
+    [combined-list] .resources_item:nth-child(n+4) {
+        display: none;
     }
 </style>
