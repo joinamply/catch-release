@@ -36,10 +36,6 @@
         .navbar-licensable-search_form-block {
             display: none;
         }
-
-        .navbar_mobile-menu-wrap {
-            display: flex;
-        }
     }
 
     @media screen and (min-width: 992px) and (max-width: 1170px) {
@@ -49,6 +45,12 @@
 
         .navbar-dropdown_dropdown-list.is-resources.w--open {
             margin-left: -25rem;
+        }
+    }
+
+    @media screen and (max-width: 9910px) {
+        html[data-wf-page] .navbar_mobile-search-button {
+            display: flex;
         }
     }
 </style>
@@ -212,3 +214,10 @@
         display: none;
     }
 </style>
+
+<!-- Video Campaign -->
+ <style>
+    .video-campaign:has(.video-campaign_video-wrap.is-vertical:not(.w-condition-invisible)) .video-campaign_video-wrap.is-horizontal {
+        display: none !important;
+    }
+ </style>

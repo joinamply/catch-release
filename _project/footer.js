@@ -596,6 +596,8 @@ if (gsap) {
     // ====================
     // Sign In
     // ====================
+    let isLoggedIn = localStorage.getItem('isLoggedIn');
+
     function showLoggedInButtons() {
         $('.navbar-dynamic-content.is-logged-out').hide();
         $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
@@ -617,13 +619,16 @@ if (gsap) {
             .catch(error => console.error("Error fetching token:", error));
     }
 
-    if (localStorage.getItem('isLoggedIn') === null) {
-        checkUserStatus();
-    }
-    else if (localStorage.getItem('isLoggedIn') === 'true') {
-        showLoggedInButtons();
-    }
-    else {
-        // Do nothing
+    switch(isLoggedIn) {
+        case 'true':
+            showLoggedInButtons();
+            // Do another check just in case the user logged out on the app
+            checkUserStatus();
+            break;
+        case 'false':
+            // Do nothing
+            break;
+        default:
+            checkUserStatus();
     }
 }
