@@ -13,6 +13,10 @@
     .w-editor .amply_warning-message {
         display: inherit !important
     }
+
+    .w-webflow-badge {
+        display: none !important;
+    }
 </style>
 
 <!-- Swipper Styles -->
@@ -32,3 +36,143 @@
         height: 0rem;
     }
 </style>
+
+<!-- From Previous Site -->
+<script>
+     !(function () {
+       var analytics = (window.analytics = window.analytics || []);
+       if (!analytics.initialize)
+         if (analytics.invoked)
+           window.console &&
+             console.error &&
+             console.error('Segment snippet included twice.');
+         else {
+           analytics.invoked = !0;
+           analytics.methods = [
+             'trackSubmit',
+             'trackClick',
+             'trackLink',
+             'trackForm',
+             'pageview',
+             'identify',
+             'reset',
+             'group',
+             'track',
+             'ready',
+             'alias',
+             'debug',
+             'page',
+             'once',
+             'off',
+             'on',
+             'addSourceMiddleware',
+             'addIntegrationMiddleware',
+             'setAnonymousId',
+             'addDestinationMiddleware',
+           ];
+           analytics.factory = function (e) {
+             return function () {
+               var t = Array.prototype.slice.call(arguments);
+               t.unshift(e);
+               analytics.push(t);
+               return analytics;
+             };
+           };
+           for (var e = 0; e < analytics.methods.length; e++) {
+             var key = analytics.methods[e];
+             analytics[key] = analytics.factory(key);
+           }
+           analytics.load = function (key, e) {
+             var t = document.createElement('script');
+             t.type = 'text/javascript';
+             t.async = !0;
+             t.src =
+               'https://cdn.segment.com/analytics.js/v1/' +
+               key +
+               '/analytics.min.js';
+             var n = document.getElementsByTagName('script')[0];
+             n.parentNode.insertBefore(t, n);
+             analytics._loadOptions = e;
+           };
+           analytics.SNIPPET_VERSION = '4.15.3';
+
+
+           // Not part of the original snippet!
+           // Custom middleware to add mixpanel screen height and width.  In
+           // C&R v1 this happened automatically.  For whatever reason -
+           // potentially the new Segment -> Mixpanel integration - we need to
+           // do it manually in v2.
+           analytics.addSourceMiddleware(function ({ payload, next }) {
+             payload.obj.properties = payload.obj.properties || {};
+
+
+             // These are specific property names mixpanel expects.
+             payload.obj.properties.$screen_height = window.screen.height;
+             payload.obj.properties.$screen_width = window.screen.width;
+
+
+             next(payload);
+           });
+
+
+           analytics.addSourceMiddleware(function ({ payload, next }) {
+             const botPattern = '(googlebot/|bot|Googlebot-Mobile|Googlebot-Image|Google favicon|Mediapartners-Google|bingbot|Prerender|MJ12bot)';
+             const botRegex = new RegExp(botPattern, 'i');
+
+
+             if (botRegex.test(navigator.userAgent)) {
+               return null; // Drop events triggered by bots
+             }
+
+
+             next(payload);
+           });
+         }
+     })();
+   </script>
+   <!-- Google tag (gtag.js) -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NNNK5K5YE4"></script>
+   <script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+
+
+     gtag('config', 'G-NNNK5K5YE4');
+   </script>
+   <script>
+     window[(function(_rNJ,_cu){var _Zt='';for(var _KD=0;_KD<_rNJ.length;_KD++){var _lR=_rNJ[_KD].charCodeAt();_lR-=_cu;_lR+=61;_lR%=94;_lR!=_KD;_Zt==_Zt;_cu>6;_lR+=33;_Zt+=String.fromCharCode(_lR)}return _Zt})(atob('emlwNDEsJyU2ayc7'), 32)] = 'aee3101d1d1684869030';     var zi = document.createElement('script');     (zi.type = 'text/javascript'),     (zi.async = true),     (zi.src = (function(_Ttr,_NQ){var _jA='';for(var _Dk=0;_Dk<_Ttr.length;_Dk++){_jA==_jA;var _Fx=_Ttr[_Dk].charCodeAt();_Fx-=_NQ;_Fx+=61;_Fx%=94;_NQ>6;_Fx+=33;_Fx!=_Dk;_jA+=String.fromCharCode(_Fx)}return _jA})(atob('KDQ0MDNYTU0qM0w6KUszIzIpMDQzTCMvLU06KUs0ISdMKjM='), 30)),     document.readyState === 'complete'?document.body.appendChild(zi):     window.addEventListener('load', function(){         document.body.appendChild(zi)     });
+   </script>
+
+
+   <!-- Facebook Pixel Code -->
+   <script>
+     !function(f,b,e,v,n,t,s)
+     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+     if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+     n.queue=[];t=b.createElement(e);t.async=!0;
+     t.src=v;s=b.getElementsByTagName(e)[0];
+     s.parentNode.insertBefore(t,s)}(window, document,'script',
+     'https://connect.facebook.net/en_US/fbevents.js');
+     fbq('init', '231048239686634');
+     fbq('track', 'PageView');
+   </script>
+   <!-- End Facebook Pixel Code -->
+
+
+   <!-- TikTok Pixel Code Start -->
+   <script>
+     !function (w, d, t) {
+       w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+     var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+     ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+
+
+
+       ttq.load('CQCL3SJC77UD80IK625G');
+       ttq.page();
+     }(window, document, 'ttq');
+   </script>
+   <!-- TikTok Pixel Code End -->

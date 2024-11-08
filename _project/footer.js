@@ -619,6 +619,7 @@ if (gsap) {
                     localStorage.setItem('isLoggedIn', true);
                 } else {
                     showLoggedOffButtons();
+                    localStorage.setItem('isLoggedIn', false);
                     console.log("No token found. User is not logged in.");
                 }
             })
@@ -632,6 +633,7 @@ if (gsap) {
             checkUserStatus();
             break;
         case 'false':
+            showLoggedOffButtons();
             // Do nothing
             break;
         default:
