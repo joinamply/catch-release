@@ -626,17 +626,15 @@ if (gsap) {
             .catch(error => console.error("Error fetching token:", error));
     }
 
-    switch(isLoggedIn) {
+    switch (isLoggedIn) {
         case 'true':
             showLoggedInButtons();
-            // Do another check just in case the user logged out on the app
-            checkUserStatus();
             break;
         case 'false':
             showLoggedOffButtons();
-            // Do nothing
             break;
-        default:
-            checkUserStatus();
     }
+
+    // Do a check just to make sure the status is matching the local variable
+    checkUserStatus();
 }
