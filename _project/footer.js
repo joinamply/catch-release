@@ -603,6 +603,11 @@ if (gsap) {
         $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
     }
 
+    function showLoggedOffButtons() {
+        $('.navbar-dynamic-content.is-logged-out').css('display', 'flex');
+        $('.navbar-dynamic-content.is-logged-in').hide();
+    }
+
     function checkUserStatus() {
         const domain = window.location.hostname;
 
