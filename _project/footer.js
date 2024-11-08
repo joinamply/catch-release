@@ -15,6 +15,19 @@ if (gsap) {
     }
 
     // ====================
+    // Navbar App
+    // ====================
+    if ($('.navbar_component').attr('navbar-app') != undefined) {
+        ScrollTrigger.create({
+            trigger: "body",
+            start: "top+=75 top",
+            end: "+=0",
+            onEnter: () => $(".navbar_layout").addClass("is-scrolling"),
+            onEnterBack: () => $(".navbar_layout").removeClass("is-scrolling"),
+        });
+    }
+
+    // ====================
     // Footer Copywrite Year
     // ====================
     $('[copyright-year]').text(new Date().getFullYear());
