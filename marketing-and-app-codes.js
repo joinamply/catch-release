@@ -1,4 +1,3 @@
-console.log('test');
 // ====================
 // HubSpot API
 // ====================
@@ -80,13 +79,13 @@ document.querySelectorAll('[hs-form]').forEach(form => {
 });
 
 // ====================
-    // Footer Newsletter
-    // ====================
-    let footerNewsletterForm;
-    footerNewsletterForm = document.getElementById('wf-form-Newsletter---Footer');
-    setTimeout(() => {
-        console.log('Newsletter form found');
-        if (footerNewsletterForm) {
+// Footer Newsletter
+// ====================
+let footerNewsletterForm;
+footerNewsletterForm = document.getElementById('wf-form-Newsletter---Footer');
+setTimeout(() => {
+    console.log('Newsletter form found');
+    if (footerNewsletterForm) {
         console.log('Newsletter form found');
         footerNewsletterForm.addEventListener('submit', function (event) {
             console.log('Newsletter form submitted');
@@ -96,4 +95,4 @@ document.querySelectorAll('[hs-form]').forEach(form => {
             return false;
         });
     }
-    }, 5000);
+}, 5000);
