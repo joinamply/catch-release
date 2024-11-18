@@ -498,16 +498,6 @@
         });
 
         // ====================
-        // Footer Newsletter
-        // ====================
-        $('#wf-form-Newsletter---Footer').on('submit', function (event) {
-            event.preventDefault();
-            $('.footer-newsletter_form').hide();
-            $('.footer-newsletter_success-message').show();
-            return false;
-        });
-
-        // ====================
         // Sign In
         // ====================
         let isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -551,5 +541,5 @@
 
         // Do a check just to make sure the status is matching the local variable
         checkUserStatus();
-    });
+    }); // Make sure to keep this in the end
 </script>

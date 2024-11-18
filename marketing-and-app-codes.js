@@ -83,16 +83,13 @@ document.querySelectorAll('[hs-form]').forEach(form => {
 // ====================
 let footerNewsletterForm;
 footerNewsletterForm = document.getElementById('wf-form-Newsletter---Footer');
-setTimeout(() => {
+if (footerNewsletterForm) {
     console.log('Newsletter form found');
-    if (footerNewsletterForm) {
-        console.log('Newsletter form found');
-        footerNewsletterForm.addEventListener('submit', function (event) {
-            console.log('Newsletter form submitted');
-            event.preventDefault();
-            document.querySelector('.footer-newsletter_form').style.display = 'none';
-            document.querySelector('.footer-newsletter_success-message').style.display = 'block';
-            return false;
-        });
-    }
-}, 5000);
+    footerNewsletterForm.addEventListener('submit', function (event) {
+        console.log('Newsletter form submitted');
+        event.preventDefault();
+        document.querySelector('.footer-newsletter_form').style.display = 'none';
+        document.querySelector('.footer-newsletter_success-message').style.display = 'block';
+        return false;
+    });
+}
