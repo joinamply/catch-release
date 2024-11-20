@@ -1,0 +1,40 @@
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // ====================
+        // Send events to tiktok and facebook
+        // ====================
+        // Select all buttons on the page
+        const buttons = document.querySelectorAll('a');
+
+        // Function to handle button click tracking
+        const trackButtonClick = (event) => {
+            const button = event.target; // The button that was clicked
+            const buttonLabel = button.innerText || button.id || 'Unnamed Button';
+
+            // Facebook Pixel event
+            if (typeof fbq === 'function') {
+                fbq('track', 'ButtonClick', {
+                    button_label: buttonLabel
+                });
+                console.log('Facebook Pixel event sent for:', buttonLabel);
+            } else {
+                console.warn('Facebook Pixel (fbq) not found.');
+            }
+
+            // TikTok Pixel event
+            if (typeof ttq === 'object') {
+                ttq.track('ClickButton', {
+                    button_label: buttonLabel
+                });
+                console.log('TikTok Pixel event sent for:', buttonLabel);
+            } else {
+                console.warn('TikTok Pixel (ttq) not found.');
+            }
+        };
+
+        // Attach the event listener to each button
+        buttons.forEach((button) => {
+            button.addEventListener('click', trackButtonClick);
+        });
+    }); // Make sure to keep this in the end
+</script>

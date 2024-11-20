@@ -93,3 +93,50 @@ if (footerNewsletterForm) {
         return false;
     });
 }
+
+// ====================
+// Sign In
+// ====================
+let isLoggedIn = localStorage.getItem('isLoggedIn');
+
+function showLoggedInButtons() {
+    $('.navbar-dynamic-content.is-logged-out').hide();
+    $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
+    $('.navbar-dynamic-content.is-logged-in').css('opacity', '1');
+}
+
+function showLoggedOffButtons() {
+    $('.navbar-dynamic-content.is-logged-out').css('display', 'flex');
+    $('.navbar-dynamic-content.is-logged-out').css('opacity', '1');
+    $('.navbar-dynamic-content.is-logged-in').hide();
+}
+
+function checkUserStatus() {
+    const domain = window.location.hostname;
+
+    fetch(`https://${domain}/.redwood/functions/auth?method=getToken`)
+        .then(response => response.text())
+        .then(data => {
+            if (data) {
+                showLoggedInButtons();
+                localStorage.setItem('isLoggedIn', true);
+            } else {
+                showLoggedOffButtons();
+                localStorage.setItem('isLoggedIn', false);
+                console.log("No token found. User is not logged in.");
+            }
+        })
+        .catch(error => console.error("Error fetching token:", error));
+}
+
+switch (isLoggedIn) {
+    case 'true':
+        showLoggedInButtons();
+        break;
+    case 'false':
+        showLoggedOffButtons();
+        break;
+}
+
+// Do a check just to make sure the status is matching the local variable
+checkUserStatus();
