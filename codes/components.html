@@ -170,17 +170,25 @@
             swiper.on('slideChange', function () {
                 let currentSlide = swiper.slides[swiper.activeIndex];
                 let previousSlide = swiper.slides[swiper.previousIndex];
-
+            
                 // Stop previous slide
                 $(previousSlide).find('.thumb-plyr_wrap').each(function () {
                     let thumbPlyrIndex = $(this).attr('thumb-plyr');
                     stopThumbPlyr($(this), thumbPlyrIndex);
                 });
-
+            
                 // Play current slide
                 $(currentSlide).find('.thumb-plyr_wrap').each(function () {
                     let thumbPlyrIndex = $(this).attr('thumb-plyr');
                     playThumbPlyr($(this), thumbPlyrIndex);
+                });
+            
+                // Ensure thumb player is properly initialized and played
+                $(currentSlide).find('.plyr_thumb').each(function () {
+                    let thumbPlyrIndex = $(this).attr('thumb-plyr');
+                    if (!thumbPlayers[thumbPlyrIndex].playing) {
+                        playThumbPlyr($(this).closest('.thumb-plyr_wrap'), thumbPlyrIndex);
+                    }
                 });
             });
         });
@@ -188,10 +196,14 @@
         // Change all slides roles to prevent an accessibility issue
         $(".swiper-slide").attr("role", "listitem");
 
-        // ====================
-        // Swiper Mobile
-        // ====================
-        function initMobileSwiper(swiperInstance, parent) {
+         // ==============================
+        // Swiper Flex
+        // ==============================
+        function initSwiperFlex(parent) {
+            let swiperInstance = parent.data('swiperInstance');
+            if (!parent.data('initialHTML')) {
+                parent.data('initialHTML', parent.html());
+            }
             if (window.innerWidth <= 767 && !swiperInstance) {
                 swiperInstance = new Swiper(parent.find('.swiper')[0], {
                     slidesPerView: 'auto',
@@ -211,20 +223,22 @@
                         disabledClass: "is-disabled"
                     }
                 });
+                parent.data('swiperInstance', swiperInstance);
             }
             else if (window.innerWidth > 767 && swiperInstance) {
                 swiperInstance.destroy(true, true); // Destroys the swiper instance
-                swiperInstance = null;
+                parent.html(parent.data('initialHTML'));
+                parent.removeData('swiperInstance');
             }
         }
 
         $(window).on('resize', function () {
             $(".mobile-swiper_component").each(function () {
-                let swiperInstance;
-                initMobileSwiper(swiperInstance, $(this));
+                initSwiperFlex($(this));
             });
         });
 
+        // Trigger the resize event to initialize the swiper
         $(window).trigger('resize');
 
         // ====================
@@ -496,5 +510,52 @@
                 };
             });
         });
+
+        // ====================
+        // Sign In
+        // ====================
+        let isLoggedIn = localStorage.getItem('isLoggedIn');
+
+        function showLoggedInButtons() {
+            $('.navbar-dynamic-content.is-logged-out').hide();
+            $('.navbar-dynamic-content.is-logged-in').css('display', 'flex');
+            $('.navbar-dynamic-content.is-logged-in').css('opacity', '1');
+        }
+
+        function showLoggedOffButtons() {
+            $('.navbar-dynamic-content.is-logged-out').css('display', 'flex');
+            $('.navbar-dynamic-content.is-logged-out').css('opacity', '1');
+            $('.navbar-dynamic-content.is-logged-in').hide();
+        }
+
+        function checkUserStatus() {
+            const domain = window.location.hostname;
+
+            fetch(`https://${domain}/.redwood/functions/auth?method=getToken`)
+                .then(response => response.text())
+                .then(data => {
+                    if (data) {
+                        showLoggedInButtons();
+                        localStorage.setItem('isLoggedIn', true);
+                    } else {
+                        showLoggedOffButtons();
+                        localStorage.setItem('isLoggedIn', false);
+                        console.log("No token found. User is not logged in.");
+                    }
+                })
+                .catch(error => console.error("Error fetching token:", error));
+        }
+
+        switch (isLoggedIn) {
+            case 'true':
+                showLoggedInButtons();
+                break;
+            case 'false':
+                showLoggedOffButtons();
+                break;
+        }
+
+        // Do a check just to make sure the status is matching the local variable
+        checkUserStatus();
     }); // Make sure to keep this in the end
 </script>
