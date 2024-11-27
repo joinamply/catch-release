@@ -1,4 +1,11 @@
 // ====================
+// Announcement Bar
+// ====================
+$('.announcement-bar_close').on('click', function () {
+    $('.announcement-bar_component').addClass('is-hidden');
+});
+
+// ====================
 // HubSpot API
 // ====================
 let hsApiUrl = 'https://api.hsforms.com/submissions/v3/integration/submit/4657307/';

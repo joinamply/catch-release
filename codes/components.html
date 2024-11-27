@@ -106,24 +106,13 @@
             let loop = $(this).attr("set-loop") !== undefined ? $(this).attr("set-loop") === "true" : false;
             let loopAdditionalSlides = $(this).attr("loop-additional-slides") !== undefined ? parseInt($(this).attr("loop-additional-slides")) : 0;
             let centeredSlides = $(this).attr("centered-slides") !== undefined ? $(this).attr("centered-slides") === "true" : false;
-            const swiper = new Swiper($(this).find(".swiper")[0], {
+            let autoPlay = $(this).attr("auto-play") !== undefined ? $(this).attr("auto-play") === "true" : false;
+            let pauseOnHover = $(this).attr("pause-on-hover") !== undefined ? $(this).attr("pause-on-hover") === "true" : false;
+            const swiperConfig = {
                 effect: effect,
-                // fadeEffect: {
-                //     crossFade: true
-                // },
-                // flipEffect: {
-                //     slideShadows: false,
-                // },
-                // coverflowEffect: {
-                //     rotate: 30,
-                //     slideShadows: false,
-                // },
-                // cardsEffect: {
-                //     // ...
-                // },
-                // cubeEffect: {
-                //     slideShadows: false,
-                // },
+                fadeEffect: {
+                    crossFade: true
+                },
                 slidesPerView: slidesPerView,
                 followFinger: followFinger,
                 speed: speed,
@@ -145,7 +134,25 @@
                     prevEl: $(this).find('[swiper-button="prev"]')[0],
                     disabledClass: "is-disabled"
                 }
-            });
+            };
+
+            if (autoPlay) {
+                swiperConfig.autoplay = {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                };
+            }
+
+            const swiper = new Swiper($(this).find(".swiper")[0], swiperConfig);
+
+            if (pauseOnHover) {
+                $(this).on("mouseenter", function () {
+                    swiper.autoplay.stop();
+                });
+                $(this).on("mouseleave", function () {
+                    swiper.autoplay.start();
+                });
+            }
 
             // Make sure the previous slide is visible when the loop is enabled
             if (loop) {
@@ -170,19 +177,19 @@
             swiper.on('slideChange', function () {
                 let currentSlide = swiper.slides[swiper.activeIndex];
                 let previousSlide = swiper.slides[swiper.previousIndex];
-            
+
                 // Stop previous slide
                 $(previousSlide).find('.thumb-plyr_wrap').each(function () {
                     let thumbPlyrIndex = $(this).attr('thumb-plyr');
                     stopThumbPlyr($(this), thumbPlyrIndex);
                 });
-            
+
                 // Play current slide
                 $(currentSlide).find('.thumb-plyr_wrap').each(function () {
                     let thumbPlyrIndex = $(this).attr('thumb-plyr');
                     playThumbPlyr($(this), thumbPlyrIndex);
                 });
-            
+
                 // Ensure thumb player is properly initialized and played
                 $(currentSlide).find('.plyr_thumb').each(function () {
                     let thumbPlyrIndex = $(this).attr('thumb-plyr');
@@ -196,7 +203,7 @@
         // Change all slides roles to prevent an accessibility issue
         $(".swiper-slide").attr("role", "listitem");
 
-         // ==============================
+        // ==============================
         // Swiper Flex
         // ==============================
         function initSwiperFlex(parent) {
